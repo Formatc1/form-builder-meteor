@@ -1,40 +1,54 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import { Layout, Panel, AppBar } from 'react-toolbox';
 import Navigation from 'react-toolbox/lib/navigation';
 import Link from 'react-toolbox/lib/link';
 
+import LoginDialog from '/imports/client/components/LoginDialog';
+
+import { toggleLoginDialog } from '/imports/client/actions/login';
+
 import styles from './AppContainerStyles';
 
 class AppContainer extends React.Component {
-  toggleLoginDialog() {
-    return false;
+  handleToggleLoginDialog() {
+    this.props.dispatch(toggleLoginDialog());
   }
 
   render () {
     return (
-      <Layout>
-        <Panel>
-          <AppBar>
-            <Navigation className={styles.navigation}>
-              {/* TODO check if user is logged */}
-              <Link
-                className={styles.white}
-                onClick={this.toggleLoginDialog.bind(this)}>
-                Login
-              </Link>
-            </Navigation>
-          </AppBar>
-          {this.props.children}
-        </Panel>
-      </Layout>
+      <div>
+        <Layout>
+          <Panel>
+            <AppBar>
+              <Navigation className={styles.navigation}>
+                {/* TODO check if user is logged */}
+                <Link
+                  className={styles.white}
+                  onClick={this.handleToggleLoginDialog.bind(this)}>
+                  Login
+                </Link>
+              </Navigation>
+            </AppBar>
+            {this.props.children}
+          </Panel>
+        </Layout>
+        <LoginDialog />
+      </div>
     );
   }
 }
 
-// return (
-//   <div>
-//     {this.props.children}
-//   </div>
+AppContainer.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
+};
 
-export default AppContainer;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(AppContainer);
