@@ -27,7 +27,10 @@ class LoginDialog extends React.Component {
     this.props.dispatch(changeFormValue(name, value));
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    if (e) {
+      e.preventDefault();
+    }
     const { username, password, passwordConfirm } = this.props.user.form;
     if(username == '') {
       return this.props.dispatch(displayError('username', 'Username should not be empty'));
@@ -70,6 +73,8 @@ class LoginDialog extends React.Component {
         onClick: this.handleToggleLoginRegister.bind(this)
       },
       {
+        type: 'submit',
+        form: 'loginForm',
         label: this.props.user.register ? 'Register' : 'Login',
         onClick: this.handleSubmit.bind(this)
       }
@@ -84,7 +89,7 @@ class LoginDialog extends React.Component {
         onEscKeyDown={this.handleToggleLoginDialog.bind(this)}
         onOverlayClick={this.handleToggleLoginDialog.bind(this)}
         title={this.props.user.register ? 'Create new account' : 'Login'}>
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit.bind(this)} id='loginForm'>
           <Input
             type='text'
             label='Username'
