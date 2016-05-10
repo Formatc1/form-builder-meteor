@@ -5,18 +5,19 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import configureStore from '/imports/client/store/configureStore';
 
+import AppContainer from '/imports/client/components/AppContainer';
 import Home from '/imports/client/components/Home';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-const AppContainer = (props) => {
-  return (
-    <div>
-      {props.children}
-    </div>
-  );
-};
+const requireAuth = (nextState, replace) => {
+  // if not logged
+  replace({
+    pathname: '/',
+    state: { nextPathname: nextState.location.pathname}
+  });
+} ;
 
 const MainRouter = () => {
   return (
@@ -24,6 +25,7 @@ const MainRouter = () => {
       <Router history={history}>
         <Route path='/' component={AppContainer}>
           <IndexRoute component={Home} />
+          <Route path='view' component={Home} onEnter={requireAuth} />
         </Route>
       </Router>
     </Provider>

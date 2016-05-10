@@ -1,0 +1,11 @@
+@import 'node_modules/react-toolbox/lib/base';
+
+.navigation {
+  text-align: right;
+  flex-grow: 1;
+}
+
+.white {
+  // important only for delevopment stage
+  color: $color-white !important;
+}
