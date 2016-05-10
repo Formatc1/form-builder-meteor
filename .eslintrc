@@ -1,0 +1,26 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "commonjs": true
+    },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "semi": [1, "always"],
+    "quotes": [1, "single"],
+    "jsx-quotes": [1, "prefer-single"],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+}
