@@ -1,4 +1,5 @@
 import update from 'react-addons-update';
+import { Meteor } from 'meteor/meteor';
 
 const initialState = {
   showLoginDialog: false,
@@ -11,7 +12,8 @@ const initialState = {
   formErrors: {
     username: '',
     password: ''
-  }
+  },
+  user: Meteor.user()
 };
 
 const reducer = (state=initialState, action) => {
@@ -43,6 +45,11 @@ const reducer = (state=initialState, action) => {
             $set: action.value
           }
         }
+      });
+
+    case 'LOGIN_LOGOUT':
+      return Object.assign({}, state, {
+        user: Meteor.user()
       });
 
     case 'CLEAN_FORM':

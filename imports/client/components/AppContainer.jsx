@@ -5,11 +5,12 @@ import { Meteor } from 'meteor/meteor';
 
 import { Layout, Panel, AppBar } from 'react-toolbox';
 import Navigation from 'react-toolbox/lib/navigation';
-import Link from 'react-toolbox/lib/link';
 
 import LoginDialog from '/imports/client/components/LoginDialog';
+import LoginButton from '/imports/client/components/LoginButton';
 
-import { toggleLoginDialog } from '/imports/client/actions/login';
+import { toggleLoginDialog,
+         loginLogout } from '/imports/client/actions/login';
 
 import styles from './AppContainerStyles';
 
@@ -19,7 +20,9 @@ class AppContainer extends React.Component {
   }
 
   handleLogout() {
-    Meteor.logout();
+    Meteor.logout(() => {
+      this.props.dispatch(loginLogout());
+    });
   }
 
   render () {
@@ -29,20 +32,11 @@ class AppContainer extends React.Component {
           <Panel>
             <AppBar>
               <Navigation className={styles.navigation}>
-                {/* TODO check if user is logged */}
-                {
-                  Meteor.user() ?
-                  <Link
-                    className={styles.white}
-                    onClick={this.handleLogout} >
-                    Logout
-                  </Link> :
-                  <Link
-                    className={styles.white}
-                    onClick={this.handleToggleLoginDialog.bind(this)}>
-                    Login
-                  </Link>
-                }
+                {this.props.user.user && `Logged as: ${this.props.user.user.username}`}
+                <LoginButton
+                  user={this.props.user.user}
+                  handleLogin={this.handleToggleLoginDialog.bind(this)}
+                  handleLogout={this.handleLogout.bind(this)} />
               </Navigation>
             </AppBar>
             {this.props.children}

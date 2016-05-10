@@ -11,7 +11,8 @@ import { toggleLoginDialog,
          toggleLoginRegister,
          changeFormValue,
          displayError,
-         cleanForm } from '/imports/client/actions/login';
+         cleanForm,
+         loginLogout } from '/imports/client/actions/login';
 
 class LoginDialog extends React.Component {
   handleToggleLoginDialog() {
@@ -46,6 +47,7 @@ class LoginDialog extends React.Component {
           this.props.dispatch(displayError('username', 'User with this username already exists'));
         } else {
           this.props.dispatch(cleanForm());
+          this.props.dispatch(loginLogout());
         }
       });
     }
@@ -54,7 +56,8 @@ class LoginDialog extends React.Component {
         this.props.dispatch(displayError('username', 'Wrong username or password'));
         this.props.dispatch(displayError('password', 'Wrong username or password'));
       } else {
-        this.props.dispatch(cleanForm());  
+        this.props.dispatch(cleanForm());
+        this.props.dispatch(loginLogout());
       }
     });
   }
@@ -81,28 +84,30 @@ class LoginDialog extends React.Component {
         onEscKeyDown={this.handleToggleLoginDialog.bind(this)}
         onOverlayClick={this.handleToggleLoginDialog.bind(this)}
         title={this.props.user.register ? 'Create new account' : 'Login'}>
-        <Input
-          type='text'
-          label='Username'
-          name='username'
-          error={this.props.user.formErrors.username}
-          value={this.props.user.form.username}
-          onChange={this.handleChange.bind(this, 'username')} />
-        <Input
-          type='password'
-          label='Password'
-          name='Password'
-          error={this.props.user.formErrors.password}
-          value={this.props.user.form.password}
-          onChange={this.handleChange.bind(this, 'password')} />
-        {this.props.user.register ?
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <Input
+            type='text'
+            label='Username'
+            name='username'
+            error={this.props.user.formErrors.username}
+            value={this.props.user.form.username}
+            onChange={this.handleChange.bind(this, 'username')} />
           <Input
             type='password'
-            label='Confirm password'
-            name='passwordConfirm'
-            value={this.props.user.form.passwordConfirm}
-            onChange={this.handleChange.bind(this, 'passwordConfirm')} /> :
-          undefined}
+            label='Password'
+            name='Password'
+            error={this.props.user.formErrors.password}
+            value={this.props.user.form.password}
+            onChange={this.handleChange.bind(this, 'password')} />
+          {this.props.user.register ?
+            <Input
+              type='password'
+              label='Confirm password'
+              name='passwordConfirm'
+              value={this.props.user.form.passwordConfirm}
+              onChange={this.handleChange.bind(this, 'passwordConfirm')} /> :
+            undefined}
+        </form>
       </Dialog>
     );
   }
