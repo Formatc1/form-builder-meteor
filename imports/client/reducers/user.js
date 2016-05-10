@@ -7,6 +7,10 @@ const initialState = {
     username: '',
     password: '',
     passwordConfirm: ''
+  },
+  formErrors: {
+    username: '',
+    password: ''
   }
 };
 
@@ -31,6 +35,18 @@ const reducer = (state=initialState, action) => {
           }
         }
       });
+
+    case 'DISPLAY_ERROR_LOGIN_FROM':
+      return update(state, {
+        formErrors: {
+          [action.name]: {
+            $set: action.value
+          }
+        }
+      });
+
+    case 'CLEAN_FORM':
+      return initialState;
 
     default:
       return state;

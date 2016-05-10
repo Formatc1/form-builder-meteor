@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import { Meteor } from 'meteor/meteor';
+
 import { Layout, Panel, AppBar } from 'react-toolbox';
 import Navigation from 'react-toolbox/lib/navigation';
 import Link from 'react-toolbox/lib/link';
@@ -16,6 +18,10 @@ class AppContainer extends React.Component {
     this.props.dispatch(toggleLoginDialog());
   }
 
+  handleLogout() {
+    Meteor.logout();
+  }
+
   render () {
     return (
       <div>
@@ -24,11 +30,19 @@ class AppContainer extends React.Component {
             <AppBar>
               <Navigation className={styles.navigation}>
                 {/* TODO check if user is logged */}
-                <Link
-                  className={styles.white}
-                  onClick={this.handleToggleLoginDialog.bind(this)}>
-                  Login
-                </Link>
+                {
+                  Meteor.user() ?
+                  <Link
+                    className={styles.white}
+                    onClick={this.handleLogout} >
+                    Logout
+                  </Link> :
+                  <Link
+                    className={styles.white}
+                    onClick={this.handleToggleLoginDialog.bind(this)}>
+                    Login
+                  </Link>
+                }
               </Navigation>
             </AppBar>
             {this.props.children}

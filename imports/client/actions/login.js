@@ -17,3 +17,17 @@ export function changeFormValue(name, value) {
     value
   };
 }
+
+export function displayError(name, value) {
+  return {
+    type: 'DISPLAY_ERROR_LOGIN_FROM',
+    name,
+    value
+  };
+}
+
+export function cleanForm() {
+  return {
+    type: 'CLEAN_FORM'
+  };
+}
