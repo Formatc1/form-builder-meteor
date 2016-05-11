@@ -11,8 +11,7 @@ import { toggleLoginDialog,
          toggleLoginRegister,
          changeFormValue,
          displayError,
-         cleanForm,
-         loginLogout } from '/imports/client/actions/login';
+         cleanForm } from '/imports/client/actions/login';
 
 class LoginDialog extends React.Component {
   handleToggleLoginDialog() {
@@ -50,7 +49,6 @@ class LoginDialog extends React.Component {
           this.props.dispatch(displayError('username', 'User with this username already exists'));
         } else {
           this.props.dispatch(cleanForm());
-          this.props.dispatch(loginLogout());
         }
       });
     }
@@ -60,7 +58,6 @@ class LoginDialog extends React.Component {
         this.props.dispatch(displayError('password', 'Wrong username or password'));
       } else {
         this.props.dispatch(cleanForm());
-        this.props.dispatch(loginLogout());
       }
     });
   }

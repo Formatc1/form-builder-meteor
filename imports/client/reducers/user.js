@@ -12,8 +12,7 @@ const initialState = {
   formErrors: {
     username: '',
     password: ''
-  },
-  user: Meteor.user()
+  }
 };
 
 const reducer = (state=initialState, action) => {
@@ -45,11 +44,6 @@ const reducer = (state=initialState, action) => {
             $set: action.value
           }
         }
-      });
-
-    case 'LOGIN_LOGOUT':
-      return Object.assign({}, state, {
-        user: Meteor.user()
       });
 
     case 'CLEAN_FORM':

@@ -26,12 +26,6 @@ export function displayError(name, value) {
   };
 }
 
-export function loginLogout() {
-  return {
-    type: 'LOGIN_LOGOUT'
-  };
-}
-
 export function cleanForm() {
   return {
     type: 'CLEAN_FORM'

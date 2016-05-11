@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import { Meteor } from 'meteor/meteor';
 
@@ -9,8 +10,7 @@ import Navigation from 'react-toolbox/lib/navigation';
 import LoginDialog from '/imports/client/components/LoginDialog';
 import LoginButton from '/imports/client/components/LoginButton';
 
-import { toggleLoginDialog,
-         loginLogout } from '/imports/client/actions/login';
+import { toggleLoginDialog } from '/imports/client/actions/login';
 
 import styles from './AppContainerStyles';
 
@@ -21,7 +21,7 @@ class AppContainer extends React.Component {
 
   handleLogout() {
     Meteor.logout(() => {
-      this.props.dispatch(loginLogout());
+      this.props.dispatch(push('/'));
     });
   }
 
@@ -34,7 +34,7 @@ class AppContainer extends React.Component {
               <Navigation className={styles.navigation}>
                 {this.props.user.user && `Logged as: ${this.props.user.user.username}`}
                 <LoginButton
-                  user={this.props.user.user}
+                  user={Meteor.user()}
                   handleLogin={this.handleToggleLoginDialog.bind(this)}
                   handleLogout={this.handleLogout.bind(this)} />
               </Navigation>
