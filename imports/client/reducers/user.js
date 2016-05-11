@@ -1,5 +1,4 @@
 import update from 'react-addons-update';
-import { Meteor } from 'meteor/meteor';
 
 const initialState = {
   showLoginDialog: false,

@@ -1,0 +1,67 @@
+
+@import 'node_modules/react-toolbox/lib/base';
+
+.fab {
+  position: fixed;
+  bottom: 3.6rem;
+  right: 2.8rem;
+  z-index: 300;
+  transition: transform .2s;
+}
+
+.fab__active {
+  @extend .fab;
+  transform: rotate(45deg);
+}
+
+.flexContainer {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.flexGrow {
+  flex-grow: 1;
+}
+
+.removeIcon {
+  margin: 2rem 0;
+}
+
+.card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.cardBottomMargin {
+  margin-bottom: 3rem;
+}
+
+.slider {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.dialog {
+  height: 500px;
+}
+
+.inputContainer {
+  transition-property: background;
+  transition-duration: .2s;
+  transition-timing-function: linear;
+  padding: 1rem;
+}
+
+.inputContainer__active {
+  @extend .inputContainer;
+  background: $palette-grey-200;
+}
+
+@media (min-width: 960px) {
+  .card {
+    width: 50%;
+    max-width: 960px;
+    min-width: 480px;
+  }
+}

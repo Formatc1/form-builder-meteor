@@ -5,6 +5,8 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 
 import user from '/imports/client/reducers/user';
 import home from '/imports/client/reducers/home';
+import edit from '/imports/client/reducers/edit';
+import form from '/imports/client/reducers/form';
 
 export default function configureStore(initialState) {
   const enhancer = compose(
@@ -15,6 +17,8 @@ export default function configureStore(initialState) {
   return createStore(combineReducers({
     routing: routerReducer,
     user,
-    home
+    home,
+    edit,
+    form
   }), initialState, enhancer);
 }
