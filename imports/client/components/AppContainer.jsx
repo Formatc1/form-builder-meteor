@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router';
 
 import { Meteor } from 'meteor/meteor';
 
 import { Layout, Panel, AppBar } from 'react-toolbox';
 import Navigation from 'react-toolbox/lib/navigation';
+import linkStyles from 'react-toolbox/lib/link/style';
 
 import LoginDialog from '/imports/client/components/LoginDialog';
 import LoginButton from '/imports/client/components/LoginButton';
@@ -31,6 +33,7 @@ class AppContainer extends React.Component {
         <Layout>
           <Panel>
             <AppBar>
+              <Link to='/' className={linkStyles.root}>Home</Link>
               <Navigation className={styles.navigation}>
                 {this.props.user.user && `Logged as: ${this.props.user.user.username}`}
                 <LoginButton
