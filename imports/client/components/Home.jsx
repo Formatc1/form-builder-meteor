@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 
+import { Meteor } from 'meteor/meteor';
+
 import { Card,
          CardTitle,
          CardText,
@@ -21,18 +23,20 @@ const Home = (props) => {
 
   return (
     <div className={styles.centered}>
-      <Card className={styles.card}>
-        <CardTitle title='Create new form'/>
-        <CardText className={styles.cardText}>
-          Build new form from scratch or edit existing one.
-        </CardText>
-        <CardActions>
-          <Button className={styles.button} label='Create' onClick={() => {
-              props.dispatch(push('/create'));
-            }} />
-          <Button className={styles.button} href='edit' label='Edit' />
-        </CardActions>
-      </Card>
+      { Meteor.user() ?
+        <Card className={styles.card}>
+          <CardTitle title='Create new form'/>
+          <CardText className={styles.cardText}>
+            Build new form from scratch or edit existing one.
+          </CardText>
+          <CardActions>
+            <Button className={styles.button} label='Create' onClick={() => {
+                props.dispatch(push('/create'));
+              }} />
+            <Button className={styles.button} href='edit' label='Edit' />
+          </CardActions>
+        </Card> : undefined
+      }
       <Card className={styles.card}>
         <CardTitle title='View form'/>
         <CardText className={styles.cardText}>
